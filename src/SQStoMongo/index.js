@@ -1,22 +1,17 @@
 const easy = require('easy-sqs');
 const tryParseJson = require('../utils');
 
-module.exports = ({ mongodb, config, logger }) => {
-  const client = easy.createClient({
-    accessKeyId: config.aws.accessKeyId,
-    secretAccessKey: config.aws.secretAccessKey,
-    region: config.aws.region,
-  });
-
+module.exports = ({ mongodb, config, logger, aws }) => {
+  const { credentials, region } = aws;
+  const { accessKeyId, secretAccessKey } = credentials;
+  const client = easy.createClient({ accessKeyId, secretAccessKey, region, });
   const queueReader = client.createQueueReader(config.sqs.queueUrl);
-
-  const stop = () => {
-   queueReader.stop();
-   dbConn.close();
-   process.exit();
-   };
-
   const collection = mongodb.collection('messages');
+  const stop = () => {
+    queueReader.stop();
+    dbConn.close();
+    process.exit();
+  };
 
   queueReader.on('started', () => logger.info('polling started pulling from: ' + config.sqs.queueUrl));
 

@@ -6,7 +6,7 @@ async@^2.0.0, async@^2.0.0-rc.6:
   dependencies:
     lodash "^4.14.0"
 
-aws-sdk@^2.6.9:
+aws-sdk, aws-sdk@^2.6.9:
   version "2.7.14"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.7.14.tgz#043e3a543b2b5e6d8d78d3733ba6a27ae23dd8c5"
   dependencies:
