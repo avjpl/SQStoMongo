@@ -16,8 +16,6 @@ module.exports = ({ mongodb, config, logger }) => {
    process.exit();
    };
 
-  logger.info(mongodb);
-
   const collection = mongodb.collection('messages');
 
   queueReader.on('started', () => logger.info('polling started pulling from: ' + config.sqs.queueUrl));
