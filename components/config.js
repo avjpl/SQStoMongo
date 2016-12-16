@@ -8,8 +8,13 @@ module.exports = options => {
         mongodb: {
           url: 'mongodb://127.0.0.1/dispatch'
         },
-        sqs: {
-          queueUrl: 'https://sqs.eu-west-1.amazonaws.com/471240247400/CDPROD-ORDERDISPATCH-UPDATE-DLQ'
+        aws: {
+          profile: 'default',
+          region: 'eu-west-1',
+          envPrefix: 'AWS',
+          sqs: {
+            queueUrl: ''
+          },
         }
       }
     )

@@ -10,7 +10,7 @@ new System()
   .configure(config())
   .add('logger', console)
   .add('env', environment())
-  .add('aws', awsCrendentials())
+  .add('aws', awsCrendentials()).dependsOn('config')
   .add('mongodb', mongodb()).dependsOn('config', 'logger')
   .start((err, components) => {
     if (err) throw err;

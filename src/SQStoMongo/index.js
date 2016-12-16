@@ -5,7 +5,8 @@ module.exports = ({ mongodb, config, logger, aws }) => {
   const { credentials, region } = aws;
   const { accessKeyId, secretAccessKey } = credentials;
   const client = easy.createClient({ accessKeyId, secretAccessKey, region, });
-  const queueReader = client.createQueueReader(config.sqs.queueUrl);
+  const queueUrl = config.aws.sqs.queueUrl;
+  const queueReader = client.createQueueReader(queueUrl);
   const collection = mongodb.collection('messages');
   const stop = () => {
     queueReader.stop();
@@ -13,7 +14,7 @@ module.exports = ({ mongodb, config, logger, aws }) => {
     process.exit();
   };
 
-  queueReader.on('started', () => logger.info('polling started pulling from: ' + config.sqs.queueUrl));
+  queueReader.on('started', () => logger.info(`polling started pulling from: ${queueUrl}`));
 
   queueReader.on('message', message => {
     logger.info('Received message from queue');
